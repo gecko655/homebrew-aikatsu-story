@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -lt 1 ] ; then
+  echo "usage: $0 episode-id"
+  exit 1
+fi
+
+episode_id=`printf %03d $1`
+series_id=`printf %02d $(( ($1 - 1)/ 50 + 1))`
+
+if [ $1 -ge 51 ] ; then
+  url="http://www.aikatsu.net/story/story-${episode_id}.html"
+  pup_command='.story-main-frame > :nth-child(2) json{}'
+else
+  url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
+  pup_command='.story-waku-menu > :nth-child(2) json{}'
+fi
+
+
+curl -s $url | \
+  pup "$pup_command" | \
+  jq --raw-output '.[].text' 
