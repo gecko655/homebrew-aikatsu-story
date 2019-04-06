@@ -2,8 +2,8 @@ require "formula"
 
 class AikatsuStory < Formula
   homepage "https://gist.github.com/gecko655/41923f915d3429ecd31e35b0c9d16c5a"
-  url "https://gist.githubusercontent.com/gecko655/41923f915d3429ecd31e35b0c9d16c5a/raw/f8a4d6722a8aa6a657c984495f78e5a435386646/aikatsu_story.sh"
-  sha256 "c6f8422f07cc1f906ac67b31412396d311522cd8ccc16d192d08930e4cb3d3b2"
+  url "https://github.com/gecko655/homebrew-aikatsu-story/releases/download/v0.1/aikatsu_story"
+  sha256 "a64ce4521bbdda8eb748f5827926da349e0f1a97f1a925c8695f90fabebf1b26"
   head "https://github.com/gecko655/homebrew-aikatsu-story"
   version "0.1"
 
@@ -11,7 +11,6 @@ class AikatsuStory < Formula
   depends_on "jq"
 
   def install
-    system "mv aikatsu_story.sh aikatsu_story"
     bin.install "aikatsu_story"
   end
 end
