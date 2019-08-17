@@ -38,6 +38,7 @@ fi
 
 if [[ -n $ONPARADE ]]; then
   echo "まだ公式Webページがないため未実装" 1>&2
+  exit 1
 fi
 
 STORY_ID=$1
