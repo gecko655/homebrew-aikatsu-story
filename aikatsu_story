@@ -1,19 +1,88 @@
 #!/bin/bash
 
-if [ $# -lt 1 ] ; then
-  echo "usage: $0 episode-id"
+usage_exit() {
+  cat <<EOS 1>&2
+Usage: $0 [-0] [-s] [-f] [-o] episode-id
+  -0: Aikatsu!
+  -s: Aikatsu Stars!
+  -f: Aikatsu Friends! (current default)
+  -o: Aikatsu on parade!
+EOS
   exit 1
+}
+
+while getopts 0sfoh OPT
+do
+  case $OPT in
+    0)  MUJIRUSHI=1
+        ;;
+    s)  STARS=1
+        ;;
+    f)  FRIENDS=1
+        ;;
+    o)  ONPARADE=1
+        ;;
+    h)  usage_exit
+        ;;
+    \?) usage_exit
+        ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ -z $MUJIRUSHI && -z $STARS && -z $FRIENDS && -z $ONPARADE ]]; then
+  # default to FRIENDS at this time.
+  # change scheduled
+  FRIENDS=1
 fi
 
-episode_id=`printf %03d $1`
-series_id=`printf %02d $(( ($1 - 1)/ 50 + 1))`
+if [[ -n $ONPARADE ]]; then
+  echo "まだ公式Webページがないため未実装" 1>&2
+fi
 
-if [ $1 -ge 51 ] ; then
-  url="http://www.aikatsu.net/story/story-${episode_id}.html"
-  pup_command='.story-main-frame > :nth-child(2) json{}'
-else
-  url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
-  pup_command='.story-waku-menu > :nth-child(2) json{}'
+STORY_ID=$1
+if [[ -z $STORY_ID ]]; then
+  usage_exit
+fi
+
+episode_id=`printf %03d $STORY_ID`
+series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
+
+if [[ -n $FRIENDS ]]; then
+  if [ $1 -ge 51 ] ; then
+    url="http://www.aikatsu.net/story/story-${episode_id}.html"
+    pup_command='.story-main-frame > :nth-child(2) json{}'
+  else
+    url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
+    pup_command='.story-waku-menu > :nth-child(2) json{}'
+  fi
+elif [[ -n $STARS ]]; then
+  url="http://www.aikatsu.net/aikatsustars_${series_id}/story/${episode_id}.html"
+  if [ $1 -ge 51 ] ; then
+    pup_command='.story-text json{}'
+  else
+    pup_command='.text json{}'
+  fi
+elif [[ -n $MUJIRUSHI ]]; then
+  # MUJIRUSHI series does not organized as groups of 50 episodes
+  if [[ $STORY_ID -le 50 ]]; then
+    series_id='01'
+  elif [[ $STORY_ID -le 101 ]]; then
+    series_id='02'
+  else
+    series_id='03'
+  fi
+  # URL of MUJIRUSHI series have 2 digit of 0 padding before ep.99
+  if [[ $STORY_ID -le 99 ]]; then
+    episode_id=`printf %02d $STORY_ID`
+  fi
+  url="http://www.aikatsu.net/${series_id}/story/${episode_id}.html"
+
+  pup_command='.story-text json{}'
+  # ???????????
+  if [[ $STORY_ID -eq 31 ]];then
+    pup_command='.story-text3 json{}'
+  fi
 fi
 
 
