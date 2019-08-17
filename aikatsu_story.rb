@@ -2,10 +2,10 @@ require "formula"
 
 class AikatsuStory < Formula
   homepage "https://github.com/gecko655/homebrew-aikatsu-story"
-  url "https://github.com/gecko655/homebrew-aikatsu-story/archive/v0.2.zip"
-  sha256 "dd571cd216d65e6017c64c11c0b8184b04bdd22a36854e72ccb7ce2a6d7ad069"
+  url "https://github.com/gecko655/homebrew-aikatsu-story/archive/v0.3.zip"
+  sha256 "f66e09de73926194924716914502a833bb7a16f95ae90b3e7ddc9a22480d0f0a"
   head "https://github.com/gecko655/homebrew-aikatsu-story"
-  version "0.2"
+  version "0.3"
 
   depends_on "pup"
   depends_on "jq"
