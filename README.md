@@ -1,4 +1,5 @@
 # homebrew-aikatsu-story
+[![CircleCI](https://circleci.com/gh/gecko655/homebrew-aikatsu-story.svg?style=svg)](https://circleci.com/gh/gecko655/homebrew-aikatsu-story)
 ![Github All Releases](https://img.shields.io/github/downloads/gecko655/homebrew-aikatsu-story/total.svg)
 
 
