@@ -12,7 +12,7 @@ brew install aikatsu_story
 
 ## Usage
 ```
-Usage: ./aikatsu_story [-0] [-s] [-f] [-o] episode-id
+Usage: aikatsu_story [-0] [-s] [-f] [-o] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
   -f: Aikatsu Friends! (current default)
