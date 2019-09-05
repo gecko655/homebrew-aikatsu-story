@@ -50,11 +50,10 @@ episode_id=`printf %03d $STORY_ID`
 series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
 
 if [[ -n $FRIENDS ]]; then
+  url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
   if [ $1 -ge 51 ] ; then
-    url="http://www.aikatsu.net/story/story-${episode_id}.html"
     pup_command='.story-main-frame > :nth-child(2) json{}'
   else
-    url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
     pup_command='.story-waku-menu > :nth-child(2) json{}'
   fi
 elif [[ -n $STARS ]]; then

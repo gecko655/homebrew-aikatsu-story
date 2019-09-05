@@ -1,5 +1,5 @@
-# id of the last episode of Aikatsu Friends! As of 2019-08-17
-LAST_EP=70
+# id of the last episode of Aikatsu Friends! As of 2019-09-06
+LAST_EP=74
 
 ex_code=0
 for i in `seq 1 178`
