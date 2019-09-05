@@ -5,8 +5,8 @@ usage_exit() {
 Usage: $0 [-0] [-s] [-f] [-o] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
-  -f: Aikatsu Friends! (current default)
-  -o: Aikatsu on parade!
+  -f: Aikatsu Friends!
+  -o: Aikatsu on parade! (current default)
 EOS
   exit 1
 }
@@ -31,15 +31,10 @@ done
 shift $((OPTIND - 1))
 
 if [[ -z $MUJIRUSHI && -z $STARS && -z $FRIENDS && -z $ONPARADE ]]; then
-  # default to FRIENDS at this time.
-  # change scheduled
-  FRIENDS=1
+  # default to ONPARADE
+  ONPARADE=1
 fi
 
-if [[ -n $ONPARADE ]]; then
-  echo "まだ公式Webページがないため未実装" 1>&2
-  exit 1
-fi
 
 STORY_ID=$1
 if [[ -z $STORY_ID ]]; then
@@ -49,7 +44,10 @@ fi
 episode_id=`printf %03d $STORY_ID`
 series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
 
-if [[ -n $FRIENDS ]]; then
+if [[ -n $ONPARADE ]]; then
+  url="http://www.aikatsu.net/story/story-${episode_id}.html"
+  pup_command='.story-main-frame > :nth-child(2) json{}'
+elif [[ -n $FRIENDS ]]; then
   url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
   if [ $1 -ge 51 ] ; then
     pup_command='.story-main-frame > :nth-child(2) json{}'

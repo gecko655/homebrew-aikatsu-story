@@ -15,9 +15,15 @@ brew install aikatsu_story
 Usage: aikatsu_story [-0] [-s] [-f] [-o] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
-  -f: Aikatsu Friends! (current default)
-  -o: Aikatsu on parade!
+  -f: Aikatsu Friends! 
+  -o: Aikatsu on parade! (current default)
 ```
+
+
+```
+$ aikatsu_story -o 1
+```
+> 姫石らきの夢は、自分だけのプレミアムレアドレスを作ること！アイドル学校・スターハーモニー学園への転入初日、らきは偶然にも友希あいねと湊みおに出会う。その後、初めてアイカツ！のステージを披露。すると、らきのアイカツパスが光り始めて……！？
 
 ```bash
 $ aikatsu_story -f 50
