@@ -3,7 +3,7 @@ require "formula"
 class AikatsuStory < Formula
   homepage "https://github.com/gecko655/homebrew-aikatsu-story"
   url "https://github.com/gecko655/homebrew-aikatsu-story/archive/v0.5.zip"
-  sha256 "fd35062b1b7d0055dc73143f7d075d36c5fb7f431bb28f50459f0d311611e605"
+  sha256 "468c60ccf64e96b8afb83ab90356332ff3ef3acab69275b60a04390f721abd57"
   head "https://github.com/gecko655/homebrew-aikatsu-story"
   version "0.5"
 
