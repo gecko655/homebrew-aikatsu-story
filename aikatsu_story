@@ -2,18 +2,34 @@
 
 usage_exit() {
   cat <<EOS 1>&2
-Usage: $0 [-0] [-s] [-f] [-o] episode-id
+Usage: $0 [-0] [-s] [-f] [-o] [--url] [--title] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
   -f: Aikatsu Friends!
   -o: Aikatsu on parade! (current default)
+
+  --url: Show story url instead of story
+  --title: Show story title instead of story
 EOS
   exit 1
 }
 
-while getopts 0sfoh OPT
+while getopts 0sfoh-: OPT
 do
   case $OPT in
+    -)
+        case "${OPTARG}" in
+          url)
+              URL=1
+              ;;
+          title)
+              TITLE=1
+              ;;
+          help)
+              usage_exit
+              ;;
+        esac
+        ;;
     0)  MUJIRUSHI=1
         ;;
     s)  STARS=1
@@ -46,9 +62,11 @@ series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
 
 if [[ -n $ONPARADE ]]; then
   url="http://www.aikatsu.net/story/story-${episode_id}.html"
+  title_pup_command='.story-main img attr{alt}'
   pup_command='.story-main-frame > :nth-child(2) json{}'
 elif [[ -n $FRIENDS ]]; then
   url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
+  title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   if [ $1 -ge 51 ] ; then
     pup_command='.story-main-frame > :nth-child(2) json{}'
   else
@@ -56,6 +74,7 @@ elif [[ -n $FRIENDS ]]; then
   fi
 elif [[ -n $STARS ]]; then
   url="http://www.aikatsu.net/aikatsustars_${series_id}/story/${episode_id}.html"
+  title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   if [ $1 -ge 51 ] ; then
     pup_command='.story-text json{}'
   else
@@ -77,12 +96,23 @@ elif [[ -n $MUJIRUSHI ]]; then
   url="http://www.aikatsu.net/${series_id}/story/${episode_id}.html"
 
   pup_command='.story-text json{}'
+  title_pup_command='#story-main p img attr{alt}'
   # ???????????
   if [[ $STORY_ID -eq 31 ]];then
     pup_command='.story-text3 json{}'
   fi
 fi
 
+if [[ -n $URL ]]; then
+  echo $url
+  exit
+fi
+
+if [[ -n $TITLE ]]; then
+  curl -s $url | \
+    pup "$title_pup_command"
+  exit
+fi
 
 curl -s $url | \
   pup "$pup_command" | \
