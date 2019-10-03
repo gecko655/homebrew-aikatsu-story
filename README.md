@@ -12,11 +12,14 @@ brew install aikatsu_story
 
 ## Usage
 ```
-Usage: aikatsu_story [-0] [-s] [-f] [-o] episode-id
+Usage: ./aikatsu_story [-0] [-s] [-f] [-o] [--url] [--title] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
-  -f: Aikatsu Friends! 
+  -f: Aikatsu Friends!
   -o: Aikatsu on parade! (current default)
+
+  --url: Show story url instead of story
+  --title: Show story title instead of story
 ```
 
 
@@ -34,3 +37,13 @@ $ aikatsu_story -f 50
 $ aikatsu_story -s 97
 ```
 > エルザによりせんげんされた、ヴィーナスアークのかいさん。ついに、そのときがきてしまった。誰しもがかいさんしてほしくないとエルザにお願いするが、エルザは聞く耳をもたない。ヴィーナスアークの生徒たちの運命は、はたして――！？
+
+```bash
+$ ./aikatsu_story -f --title 28
+```
+> ひとりでもフレンズ
+
+```bash
+$ ./aikatsu_story -0 --url 101
+```
+> http://www.aikatsu.net/02/story/101.html
