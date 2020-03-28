@@ -12,11 +12,12 @@ brew install aikatsu_story
 
 ## Usage
 ```
-Usage: aikatsu_story [-0] [-s] [-f] [-o] [--url] [--title] episode-id
+Usage: aikatsu_story [-0] [-s] [-f] [-o] [-w] [--url] [--title] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
   -f: Aikatsu Friends!
-  -o: Aikatsu on parade! (current default)
+  -o: Aikatsu on parade! 
+  -w: Aikatsu on parade! (web) (current default)
 
   --url: Show story url instead of story
   --title: Show story title instead of story
