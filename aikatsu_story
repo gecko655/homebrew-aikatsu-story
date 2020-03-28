@@ -6,7 +6,8 @@ Usage: $0 [-0] [-s] [-f] [-o] [--url] [--title] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
   -f: Aikatsu Friends!
-  -o: Aikatsu on parade! (current default)
+  -o: Aikatsu on parade! 
+  -w: Aikatsu on parade! (web anime) (current default)
 
   --url: Show story url instead of story
   --title: Show story title instead of story
@@ -14,7 +15,7 @@ EOS
   exit 1
 }
 
-while getopts 0sfoh-: OPT
+while getopts 0sfohw-: OPT
 do
   case $OPT in
     -)
@@ -38,6 +39,8 @@ do
         ;;
     o)  ONPARADE=1
         ;;
+    o)  ONPARADE_WEB=1
+        ;;
     h)  usage_exit
         ;;
     \?) usage_exit
@@ -46,9 +49,9 @@ do
 done
 shift $((OPTIND - 1))
 
-if [[ -z $MUJIRUSHI && -z $STARS && -z $FRIENDS && -z $ONPARADE ]]; then
-  # default to ONPARADE
-  ONPARADE=1
+if [[ -z $MUJIRUSHI && -z $STARS && -z $FRIENDS && -z $ONPARADE && -z $ONPARADE_WEB ]]; then
+  # default to ONPARADE_WEB
+  ONPARADE_WEB=1
 fi
 
 
@@ -60,7 +63,13 @@ fi
 episode_id=`printf %03d $STORY_ID`
 series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
 
-if [[ -n $ONPARADE ]]; then
+if [[ -n $ONPARADE_WEB ]]; then
+  # episode_id is formed of 2 digits in onparade_web
+  episode_id=`printf %02d $STORY_ID`
+  url="http://www.aikatsu.net/webanime/story-${episode_id}.html"
+  title_pup_command='.story-main img attr{alt}'
+  pup_command='.story-main-frame > :nth-child(2) json{}'
+elif [[ -n $ONPARADE ]]; then
   url="http://www.aikatsu.net/story/story-${episode_id}.html"
   title_pup_command='.story-main img attr{alt}'
   pup_command='.story-main-frame > :nth-child(2) json{}'
