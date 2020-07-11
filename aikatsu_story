@@ -67,11 +67,11 @@ if [[ -n $ONPARADE_WEB ]]; then
   # episode_id is formed of 2 digits in onparade_web
   episode_id=`printf %02d $STORY_ID`
   url="http://www.aikatsu.net/webanime/story-${episode_id}.html"
-  title_pup_command='.story-main img attr{alt}'
+  title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   pup_command='.story-main-frame > :nth-child(2) json{}'
 elif [[ -n $ONPARADE ]]; then
   url="http://www.aikatsu.net/story/story-${episode_id}.html"
-  title_pup_command='.story-main img attr{alt}'
+  title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   pup_command='.story-main-frame > :nth-child(2) json{}'
 elif [[ -n $FRIENDS ]]; then
   url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
