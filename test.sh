@@ -1,5 +1,5 @@
-# id of the last episode of Aikatsu on Parade! web As of 2020-03-28
-ONPARADE_WEB_LAST_EP=2
+# id of the last episode of Aikatsu on Parade! web As of 2020-07-11
+ONPARADE_WEB_LAST_EP=6
 
 ex_code=0
 for i in `seq 1 178`
