@@ -1,5 +1,5 @@
-# id of the last episode of Aikatsu on Parade! web As of 2020-07-11
-ONPARADE_WEB_LAST_EP=6
+# id of the last episode of Aikatsu Planet! As of 2021-01-11
+PLANET=2
 
 ex_code=0
 for i in `seq 1 178`
@@ -44,13 +44,24 @@ do
   fi
 done
 
-for i in `seq 1 $ONPARADE_WEB_LAST_EP`
+for i in `seq 1 6`
 do
   story=`./aikatsu_story -w $i`
   title=`./aikatsu_story -w --title $i`
   echo "Aikatsu on Parade! web$i: $title $story"
   if [[ -z $title || -z $story ]];then
     echo "Failed to fetch story of Aikatsu on Parade! web ep$i" 1>&2
+    ex_code=1
+  fi
+done
+
+for i in `seq 1 $PLANET`
+do
+  story=`./aikatsu_story -p $i`
+  title=`./aikatsu_story -p --title $i`
+  echo "Aikatsu Planet! $i: $title $story"
+  if [[ -z $title || -z $story ]];then
+    echo "Failed to fetch story of Aikatsu Planet! web $i" 1>&2
     ex_code=1
   fi
 done
