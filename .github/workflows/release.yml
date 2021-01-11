@@ -6,14 +6,12 @@ on:
 
 jobs:
   homebrew-release:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Release Homebrew Formula
-          if: github.event.release.prerelease != true
-          uses: garden-io/update-homebrew-action@v1
-          with:
-            packageName: 'aikatsu_story'
-            templatePath: 'aikatsu_story.rb'
-            tapRepo: 'gecko655/homebrew-aikatsu-story'
-            srcRepo: 'gecko655/aikatsu-story'
-            authToken: ${{ secrets.GITHUB_TOKEN }}
+        if: github.event.release.prerelease != true
+        uses: izumin5210/action-homebrew-tap@releases/v0
+        with:
+          tap: izumin5210/homebrew-tools
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tap-token: ${{ secrets.GITHUB_TOKEN }}
