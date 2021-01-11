@@ -2,12 +2,13 @@
 
 usage_exit() {
   cat <<EOS 1>&2
-Usage: $0 [-0] [-s] [-f] [-o] [--url] [--title] episode-id
+Usage: $0 [-0] [-s] [-f] [-o] [-w] [-p] [--url] [--title] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
   -f: Aikatsu Friends!
   -o: Aikatsu on parade! 
-  -w: Aikatsu on parade! (web anime) (current default)
+  -w: Aikatsu on parade! (web anime)
+  -p: Aikatsu planet! (current default)
 
   --url: Show story url instead of story
   --title: Show story title instead of story
@@ -15,7 +16,7 @@ EOS
   exit 1
 }
 
-while getopts 0sfohw-: OPT
+while getopts h0sfowp-: OPT
 do
   case $OPT in
     -)
@@ -39,7 +40,9 @@ do
         ;;
     o)  ONPARADE=1
         ;;
-    o)  ONPARADE_WEB=1
+    w)  ONPARADE_WEB=1
+        ;;
+    p)  PLANET=1
         ;;
     h)  usage_exit
         ;;
@@ -50,8 +53,8 @@ done
 shift $((OPTIND - 1))
 
 if [[ -z $MUJIRUSHI && -z $STARS && -z $FRIENDS && -z $ONPARADE && -z $ONPARADE_WEB ]]; then
-  # default to ONPARADE_WEB
-  ONPARADE_WEB=1
+  # default to PLANET
+  PLANET=1
 fi
 
 
@@ -63,7 +66,15 @@ fi
 episode_id=`printf %03d $STORY_ID`
 series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
 
-if [[ -n $ONPARADE_WEB ]]; then
+if [[ -n $PLANET ]]; then
+  # episode_id is formed of 2 digits in planet
+  episode_id=`printf %02d $STORY_ID`
+  url="http://www.aikatsu.net/story/story-${episode_id}.html"
+  # FIXME: Planet has no image alt (???).
+  # Get title from <title> (workaround)
+  title_pup_command='title text{}'
+  pup_command='.story-text > json{}'
+elif [[ -n $ONPARADE_WEB ]]; then
   # episode_id is formed of 2 digits in onparade_web
   episode_id=`printf %02d $STORY_ID`
   url="http://www.aikatsu.net/aikatsuonparade/webanime/story-${episode_id}.html"

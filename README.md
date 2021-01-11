@@ -6,18 +6,18 @@
 ## Install
 
 ```bash
-brew tap gecko655/aikatsu-story
-brew install aikatsu_story
+brew install gecko655/aikatsu-story/aikatsu_story
 ```
 
 ## Usage
 ```
-Usage: aikatsu_story [-0] [-s] [-f] [-o] [-w] [--url] [--title] episode-id
+Usage: $0 [-0] [-s] [-f] [-o] [-w] [-p] [--url] [--title] episode-id
   -0: Aikatsu!
   -s: Aikatsu Stars!
   -f: Aikatsu Friends!
-  -o: Aikatsu on parade! 
-  -w: Aikatsu on parade! (web) (current default)
+  -o: Aikatsu on parade!
+  -w: Aikatsu on parade! (web anime)
+  -p: Aikatsu planet! (current default)
 
   --url: Show story url instead of story
   --title: Show story title instead of story
