@@ -1,0 +1,17 @@
+name: test
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup go
+        uses: actions/setup-go@v4
+      - name: install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          go install github.com/ericchiang/pup@latest
+      - name: test
+        run: ./test.sh
