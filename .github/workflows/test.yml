@@ -12,6 +12,6 @@ jobs:
       - name: install dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y jq
-          go get github.com/ericchiang/pup
+          go install github.com/ericchiang/pup@latest
       - name: test
         run: ./test.sh
