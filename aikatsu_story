@@ -69,7 +69,7 @@ series_id=`printf %02d $(( ($STORY_ID - 1)/ 50 + 1))`
 if [[ -n $PLANET ]]; then
   # episode_id is formed of 2 digits in planet
   episode_id=`printf %02d $STORY_ID`
-  url="http://www.aikatsu.net/story/story-${episode_id}.html"
+  url="https://www.aikatsu.net/aikatsuplanet/story/story-${episode_id}.html"
   # FIXME: Planet has no image alt (???).
   # Get title from <title> (workaround)
   title_pup_command='title text{}'
@@ -77,15 +77,15 @@ if [[ -n $PLANET ]]; then
 elif [[ -n $ONPARADE_WEB ]]; then
   # episode_id is formed of 2 digits in onparade_web
   episode_id=`printf %02d $STORY_ID`
-  url="http://www.aikatsu.net/aikatsuonparade/webanime/story-${episode_id}.html"
+  url="https://www.aikatsu.net/aikatsuonparade/webanime/story-${episode_id}.html"
   title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   pup_command='.story-main-frame > :nth-child(2) json{}'
 elif [[ -n $ONPARADE ]]; then
-  url="http://www.aikatsu.net/aikatsuonparade/story/story-${episode_id}.html"
+  url="https://www.aikatsu.net/aikatsuonparade/story/story-${episode_id}.html"
   title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   pup_command='.story-main-frame > :nth-child(2) json{}'
 elif [[ -n $FRIENDS ]]; then
-  url="http://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
+  url="https://www.aikatsu.net/aikatsufriends_${series_id}/story/story-${episode_id}.html"
   title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   if [ $1 -ge 51 ] ; then
     pup_command='.story-main-frame > :nth-child(2) json{}'
@@ -93,7 +93,7 @@ elif [[ -n $FRIENDS ]]; then
     pup_command='.story-waku-menu > :nth-child(2) json{}'
   fi
 elif [[ -n $STARS ]]; then
-  url="http://www.aikatsu.net/aikatsustars_${series_id}/story/${episode_id}.html"
+  url="https://www.aikatsu.net/aikatsustars_${series_id}/story/${episode_id}.html"
   title_pup_command='.story-main > :nth-child(1) img attr{alt}'
   if [ $1 -ge 51 ] ; then
     pup_command='.story-text json{}'
@@ -113,7 +113,7 @@ elif [[ -n $MUJIRUSHI ]]; then
   if [[ $STORY_ID -le 99 ]]; then
     episode_id=`printf %02d $STORY_ID`
   fi
-  url="http://www.aikatsu.net/${series_id}/story/${episode_id}.html"
+  url="https://www.aikatsu.net/${series_id}/story/${episode_id}.html"
 
   pup_command='.story-text json{}'
   title_pup_command='#story-main p img attr{alt}'

@@ -1,6 +1,3 @@
-# id of the last episode of Aikatsu Planet! As of 2021-01-11
-PLANET=2
-
 ex_code=0
 for i in `seq 1 178`
 do
@@ -55,7 +52,7 @@ do
   fi
 done
 
-for i in `seq 1 $PLANET`
+for i in `seq 1 25`
 do
   story=`./aikatsu_story -p $i`
   title=`./aikatsu_story -p --title $i`
